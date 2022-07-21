@@ -1,48 +1,50 @@
 import React, { useEffect } from 'react';
+import * as api from '../services/api';
 
 const TaskContext = React.createContext();
 
 const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = React.useState(() => {
-    const storaged_tasks = window.localStorage.getItem('tasks');
-    if (storaged_tasks) return JSON.parse(storaged_tasks);
-    else return [];
-  });
-
-  const prevTasksRef = React.useRef();
+  const [tasks, setTasks] = React.useState([]);
 
   useEffect(() => {
-    prevTasksRef.current = tasks;
-  });
-
-  const tasksPreviousValue = prevTasksRef.current ?? tasks;
-
-  useEffect(() => {
-    if (tasksPreviousValue !== tasks) {
-      window.localStorage.setItem('tasks', JSON.stringify(tasks));
+    async function fetchData() {
+      const response = await api.TASKS_GET();
+      if (response) setTasks(response);
     }
-  }, [tasks, tasksPreviousValue]);
 
-  function addTask(content) {
+    fetchData();
+  }, []);
+
+  async function addTask(content) {
     const task = {
-      id: new Date().getTime().toString(),
-      isComplete: false,
-      content: content,
+      done: false,
+      description: content,
     };
 
-    setTasks([...tasks, task]);
+    const response = await api.TASK_CREATE(task);
+    if (response) setTasks([...tasks, response]);
   }
 
-  function removeTask(id) {
-    const filtered = tasks.filter((curr) => curr.id !== id);
-    setTasks(filtered);
+  async function removeTask(id) {
+    const response = await api.TASK_DELETE(id);
+    if (response) {
+      const filtered = tasks.filter((curr) => curr.id !== id);
+      setTasks(filtered);
+    }
   }
 
-  function completeTask(id) {
-    const filtered = tasks.map((curr) =>
-      curr.id === id ? { ...curr, isComplete: !curr.isComplete } : curr,
-    );
-    setTasks(filtered);
+  async function completeTask(id) {
+    const task = await api.TASK_GETBYID(id);
+    if (!task) return;
+
+    const response = await api.TASK_UPDATE(id, { ...task, done: !task.done });
+
+    if (response) {
+      const filtered = tasks.map((curr) =>
+        curr.id === id ? { ...curr, done: !curr.done } : curr,
+      );
+      setTasks(filtered);
+    }
   }
 
   return (

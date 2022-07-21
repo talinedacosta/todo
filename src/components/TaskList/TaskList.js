@@ -8,11 +8,11 @@ const TaskList = () => {
 
   return (
     <div className={styles.tasks}>
-      {tasks &&
+      {tasks.length > 0 &&
         tasks.map((task) => {
           return (
-            <Task key={task.id} id={task.id} isComplete={task.isComplete}>
-              {task.content}
+            <Task key={task.id} id={task.id} isComplete={task.done}>
+              {task.description}
             </Task>
           );
         })}
