@@ -13,6 +13,10 @@
     border-radius: 0.3rem;
     background-color: black;
     overflow: hidden;
+    transform: translateX(20px);
+    opacity: 0;
+    animation: slide 0.3s forwards ease-in;
+    transition: all 0.3s ease-in-out;
 }
 
 .wrapper.completed {
@@ -67,4 +71,11 @@
 
 .content {
     line-height: 1;
+}
+
+@keyframes slide {
+    to {
+        opacity: 1;
+        transform: initial;
+    }
 }
