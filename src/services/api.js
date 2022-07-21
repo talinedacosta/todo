@@ -20,12 +20,10 @@ async function TASK_CREATE(body) {
         'Content-type': 'application/json; charset=UTF-8',
       },
     });
-    console.log(response);
     if (!response.ok) throw new Error();
     const json = await response.json();
     return json;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
