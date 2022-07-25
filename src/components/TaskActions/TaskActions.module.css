@@ -1,0 +1,80 @@
+.actions{
+    display: flex;
+    gap: 0.3rem;
+    position: relative;
+}
+
+.dropdown {  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem; 
+    position: absolute;
+    right: 0px;
+    top: 1rem;
+    opacity: 0;
+    width: 8rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 100;
+    box-shadow: 0 0 5px var(--color-light-gray);
+    background-color: white;
+    animation: slideDown 0.2s forwards ease;
+}
+
+.button{
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    z-index: 99;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem; 
+    border-radius: 0.5rem;
+    font-size: 0.7rem;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.button.menu {
+    padding: 0.5rem;
+}
+
+.button.check:hover{
+    background-color: var(--color-opacity-green);
+}
+
+.button.edit:hover{
+    background-color: var(--color-opacity-blue);
+}
+
+.button.trash:hover{
+    background-color: var(--color-opacity-red);
+}
+
+.icon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.check {
+    color: var(--color-medium-green);
+}
+
+.edit {
+    color: var(--color-medium-blue);
+}
+
+.trash {
+    color: var(--color-medium-red);
+}
+
+@keyframes slideDown {
+    to {
+        top: 2rem;
+        opacity: initial;
+    }
+}

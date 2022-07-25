@@ -1,0 +1,48 @@
+.container {
+    background-color: var(--color-light-gray);
+    padding: 1rem;
+    border-radius: 0.5rem;    
+    position: relative;
+    transform: scale(0.9);
+    opacity: 0;
+    animation: scaleEffect 0.5s forwards;
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.button {
+    border: none;
+    outline: none;
+    color: white;
+    background-color: var(--color-medium-green);
+    cursor: pointer;
+    border-radius: 1rem;
+    padding: 0.3rem 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    box-shadow: 0 0 8px var(--color-medium-green);
+}
+
+@keyframes scaleEffect {
+    to {
+        transform: initial;
+        opacity: 1;
+    }
+}
